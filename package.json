@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
+    "@monodon/rust": "^2.1.0",
     "@nx/devkit": "20.0.8",
     "@nx/eslint": "20.0.8",
     "@nx/eslint-plugin": "20.0.8",
