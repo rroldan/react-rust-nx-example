@@ -9,7 +9,8 @@ tmp
 node_modules
 
 # rust dependencies
-.cargo/
+.cargo/*
+!.cargo/config.toml
 
 # IDEs and editors
 /.idea
