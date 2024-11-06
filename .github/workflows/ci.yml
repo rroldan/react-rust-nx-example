@@ -41,12 +41,12 @@ jobs:
       - run: npx nx affected -t lint test build
 
      #Rust
-     
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
       - uses: actions/checkout@v4
 
-      - name: Build
       - run: npx api:build --verbose
-      
-      - name: Run tests
       - run: npx api:test --verbose
 
