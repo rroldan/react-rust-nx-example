@@ -1,0 +1,12 @@
+name: Nx Distributed Tasks
+on: push
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: git fetch --no-tags --prune --depth=1 origin master
+      - run: npm install
+      - run: npx nx affected --target=test --base=origin/master
+      - run: npx nx affected --target=lint --base=origin/master
+      - run: npx nx affected --target=build --base=origin/master
