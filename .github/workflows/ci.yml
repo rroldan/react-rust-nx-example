@@ -47,6 +47,6 @@ jobs:
           toolchain: stable
       - uses: actions/checkout@v4
 
-      - run: npx api:build --verbose
-      - run: npx api:test --verbose
+      - run: npx nx api:build --verbose
+      - run: npx nx api:test --verbose
 
