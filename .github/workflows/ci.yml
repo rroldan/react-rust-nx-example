@@ -40,8 +40,7 @@ jobs:
       # When you enable task distribution, run the e2e-ci task instead of e2e
       - run: npx nx affected -t lint test build
 
-    steps:
-      - uses: actions/checkout@v4
+    # Rust
 
       - name: Build
       - run: npx api:build --verbose
