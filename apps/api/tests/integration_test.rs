@@ -2,6 +2,7 @@ use testcontainers::{clients, core::WaitFor, images::postgres::Postgres};
 use tokio::test;
 use tokio_postgres::Row;
 
+
 #[derive(Debug)]
 pub struct User {
     pub id: i32,
@@ -88,6 +89,6 @@ async fn it_works() {
     assert_eq!("user1", user.username);
     assert_eq!("mypass", user.password);
     assert_eq!("user@test.com", user.email);
-    assert_eq!(1,2);
+    println!("User: {:#?}", user);
 }
 
