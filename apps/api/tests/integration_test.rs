@@ -1,6 +1,8 @@
 use testcontainers::{clients, core::WaitFor, images::postgres::Postgres};
 use tokio::test;
 use tokio_postgres::Row;
+use std::env;
+use dotenv::dotenv;
 
 
 #[derive(Debug)]
@@ -24,6 +26,7 @@ impl From<Row> for User {
 
 #[test]
 async fn it_works() {
+    dotenv().ok();
     let docker = clients::Cli::default();
 
     // Define a PostgreSQL container image
@@ -37,10 +40,10 @@ async fn it_works() {
 
     // Get the PostgreSQL port
     let pg_port = pg_container.get_host_port_ipv4(5432);
-
+    
     // Define the connection to the Postgress client
     let (client, connection) = tokio_postgres::Config::new()
-        .user("postgres")
+        .user(env::var("POSTGRES_USER").unwrap())
         .password("postgres")
         .host("localhost")
         .port(pg_port)
