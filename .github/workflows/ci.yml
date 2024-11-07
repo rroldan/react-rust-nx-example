@@ -10,7 +10,7 @@ permissions:
   actions: read
   contents: read
 
-  env:
+env:
   POSTGRES_USER: postgres
 
 jobs:
