@@ -40,7 +40,7 @@ async fn it_works() {
     // Define the connection to the Postgress client
     let (client, connection) = tokio_postgres::Config::new()
         .user("postgres")
-        .password("")
+        .password("postgres")
         .host("localhost")
         .port(pg_port)
         .dbname("postgres")
@@ -88,5 +88,6 @@ async fn it_works() {
     assert_eq!("user1", user.username);
     assert_eq!("mypass", user.password);
     assert_eq!("user@test.com", user.email);
+    assert_eq!(1,2);
 }
 
