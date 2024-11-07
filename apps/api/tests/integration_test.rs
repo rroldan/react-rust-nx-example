@@ -40,7 +40,7 @@ async fn it_works() {
     // Define the connection to the Postgress client
     let (client, connection) = tokio_postgres::Config::new()
         .user("postgres")
-        .password("postgres")
+        .password("")
         .host("localhost")
         .port(pg_port)
         .dbname("postgres")
