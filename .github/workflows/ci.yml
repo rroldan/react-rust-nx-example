@@ -43,8 +43,8 @@ jobs:
       # When you enable task distribution, run the e2e-ci task instead of e2e
         
       - run: npx nx affected -t lint test build
-      env:
-        POSTGRES_USER: postgres
+        env:
+          POSTGRES_USER: postgres
         
 
       # Rust
