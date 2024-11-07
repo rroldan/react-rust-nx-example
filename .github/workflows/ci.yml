@@ -13,8 +13,7 @@ permissions:
 
 
 jobs:
- env:
-    POSTGRES_USER: postgres
+ 
   main:
     runs-on: ubuntu-latest
     steps:
@@ -38,6 +37,8 @@ jobs:
      
       - uses: nrwl/nx-set-shas@v4
       
+      env:
+        POSTGRES_USER: postgres
 
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
       # - run: npx nx-cloud record -- echo Hello World
