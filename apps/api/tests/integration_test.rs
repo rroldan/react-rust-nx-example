@@ -4,7 +4,6 @@ use tokio_postgres::Row;
 use std::env;
 use dotenv::dotenv;
 
-
 #[derive(Debug)]
 pub struct User {
     pub id: i32,
