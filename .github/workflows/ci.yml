@@ -10,6 +10,9 @@ permissions:
   actions: read
   contents: read
 
+  env:
+  POSTGRES_USER: postgres
+
 jobs:
   main:
     runs-on: ubuntu-latest
