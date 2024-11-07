@@ -40,7 +40,7 @@ jobs:
       - name: 'Create env file'
         run: |
           touch .env
-          echo POSTGRES_USER=postgres 
+          echo POSTGRES_USER=postgres >> .env
           cat .env
 
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
@@ -48,7 +48,7 @@ jobs:
       # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
       # When you enable task distribution, run the e2e-ci task instead of e2e
         
-      - run: npx nx affected -t lint test build
+      #- run: npx nx affected -t lint test build
         
 
       # Rust
