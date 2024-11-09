@@ -48,7 +48,7 @@ jobs:
         run: |
           touch .env
           echo POSTGRES_USER=${{ env.POSTGRES_USER }} >> .env
-          echo POSTGRES_USER=${{ env.POSTGRES_PASS }} >> .env
+          echo POSTGRES_PASS=${{ env.POSTGRES_PASS }} >> .env
           cat .env
           npx nx affected -t lint test build
         
@@ -64,7 +64,7 @@ jobs:
         run: |
           touch .env
           echo POSTGRES_USER=${{ env.POSTGRES_USER }} >> .env
-          echo POSTGRES_USER=${{ env.POSTGRES_PASS }} >> .env
+          echo POSTGRES_PASS=${{ env.POSTGRES_PASS }} >> .env
           cat .env
 
       - run: cargo build
