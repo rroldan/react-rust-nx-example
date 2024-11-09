@@ -12,6 +12,7 @@ permissions:
 
 env:
   POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+  POSTGRES_PASS: ${{ secrets.POSTGRES_PASS }}
 
 jobs:
  
@@ -47,6 +48,7 @@ jobs:
         run: |
           touch .env
           echo POSTGRES_USER=${{ env.POSTGRES_USER }} >> .env
+          echo POSTGRES_USER=${{ env.POSTGRES_PASS }} >> .env
           cat .env
           npx nx affected -t lint test build
         
@@ -61,7 +63,8 @@ jobs:
       - name: 'Create env file'
         run: |
           touch .env
-          echo POSTGRES_USER=postgres >> .env
+          echo POSTGRES_USER=${{ env.POSTGRES_USER }} >> .env
+          echo POSTGRES_USER=${{ env.POSTGRES_PASS }} >> .env
           cat .env
 
       - run: cargo build
