@@ -10,7 +10,8 @@ permissions:
   actions: read
   contents: read
 
-
+env:
+  POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
 
 jobs:
  
@@ -45,7 +46,7 @@ jobs:
       - name: 'Create env file'
         run: |
           touch .env
-          echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
+          echo POSTGRES_USER=${{ env.POSTGRES_USER }} >> .env
           cat .env
           npx nx affected -t lint test build
         
