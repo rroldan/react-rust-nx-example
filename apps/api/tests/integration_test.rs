@@ -39,26 +39,41 @@ async fn it_works() {
 
     // Get the PostgreSQL port
     let pg_port = pg_container.get_host_port_ipv4(5432);
+    let user = env::var("POSTGRES_USER").unwrap();
+    let password = env::var("POSTGRES_PASS").unwrap();
     
-    // Define the connection to the Postgress client
-    let (client, connection) = tokio_postgres::Config::new()
-        .user(env::var("POSTGRES_USER").unwrap())
-        .password(env::var("POSTGRES_PASS").unwrap())
-       // .password("postgres")
-        .host("localhost")
-        .port(pg_port)
-        .dbname("postgres")
-        .connect(tokio_postgres::NoTls)
-        .await
-        .unwrap();
+    // Conectar al contenedor PostgreSQL
+    let initial_config = format!("host=localhost port={} user={} password={}", pg_port, user, password);
+    let (initial_client, initial_connection) = tokio_postgres::connect(&initial_config, tokio_postgres::NoTls).await.unwrap();
 
-    // Spawn connection
+    // Iniciar la tarea de conexión para manejar I/O asíncrono
     tokio::spawn(async move {
+        if let Err(e) = initial_connection.await {
+            eprintln!("Connection error: {}", e);
+        }
+    });
+   
+    initial_client.batch_execute("CREATE DATABASE petstore_database_test").await.unwrap();
+    println!("Base de datos 'petstore' creada con éxito.");
+
+         
+    let (client, connection) = tokio_postgres::Config::new()
+    .user(env::var("POSTGRES_USER").unwrap())
+    .password(env::var("POSTGRES_PASS").unwrap())
+    .host("localhost")
+    .port(pg_port)
+    .dbname("petstore_database_test")
+    //petstore
+    .connect(tokio_postgres::NoTls)
+    .await
+    .unwrap();
+
+     // Spawn connection
+     tokio::spawn(async move {
         if let Err(error) = connection.await {
             eprintln!("Connection error: {}", error);
         }
     });
-
     let _ = client
         .batch_execute(
             "
