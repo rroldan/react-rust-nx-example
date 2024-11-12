@@ -21,6 +21,7 @@
     "@nx/vite": "20.0.8",
     "@nx/web": "20.0.8",
     "@nx/workspace": "20.0.8",
+    "@openapitools/openapi-generator-cli": "^2.15.3",
     "@playwright/test": "^1.36.0",
     "@swc-node/register": "~1.9.1",
     "@swc/cli": "~0.3.12",
