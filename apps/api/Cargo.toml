@@ -9,6 +9,6 @@ testcontainers = "0.14.0"
 tokio = { version = "1.32.0", features = ["full"] }
 tokio-postgres = "0.7.10"
 dotenv = "0.15.0"
-sqlx = "0.8.2"
+sqlx = { version = "0.8.2", features = ["tls-native-tls", "runtime-async-std", "postgres", "chrono", "uuid"] }
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

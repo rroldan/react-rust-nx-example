@@ -2,10 +2,10 @@
 
 
 -- Create the role for the database
--- CREATE USER "pet-store" WITH LOGIN SUPERUSER PASSWORD 'pa55w0rd';
+--CREATE USER "petstore" WITH LOGIN SUPERUSER PASSWORD 'petstore';
 
 -- Create the database
--- CREATE DATABASE "pet-store" WITH OWNER = "pet-store";
+-- CREATE DATABASE "petstore" WITH OWNER = "petstore";
 
 
 -- --------------------------------------------------------
