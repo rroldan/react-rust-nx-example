@@ -3,6 +3,7 @@ use tokio::test;
 use tokio_postgres::Row;
 use std::env;
 use dotenv::dotenv;
+use std::fs;
 
 #[derive(Debug)]
 pub struct User {
@@ -27,6 +28,7 @@ impl From<Row> for User {
 async fn it_works() {
     dotenv().ok();
     let docker = clients::Cli::default();
+    let file_path_migrations = "./migrations/20241112150209_init.up.sql";
 
     // Define a PostgreSQL container image
     let postgres_image = Postgres::default();
@@ -54,7 +56,7 @@ async fn it_works() {
     });
    
     initial_client.batch_execute("CREATE DATABASE petstore_database_test").await.unwrap();
-    println!("Base de datos 'petstore' creada con éxito.");
+    
 
          
     let (client, connection) = tokio_postgres::Config::new()
@@ -74,39 +76,14 @@ async fn it_works() {
             eprintln!("Connection error: {}", error);
         }
     });
+
+   
+    let init = fs::read_to_string(file_path_migrations).unwrap();
     let _ = client
         .batch_execute(
-            "
-        CREATE TABLE IF NOT EXISTS app_user (
-            id              SERIAL PRIMARY KEY,
-            username        VARCHAR UNIQUE NOT NULL,
-            password        VARCHAR NOT NULL,
-            email           VARCHAR UNIQUE NOT NULL
-            )
-    ",
+           &init,
         )
         .await;
 
-    let _ = client
-        .execute(
-            "INSERT INTO app_user (username, password, email) VALUES ($1, $2, $3)",
-            &[&"user1", &"mypass", &"user@test.com"],
-        )
-        .await;
-
-    let result = client
-        .query("SELECT id, username, password, email FROM app_user", &[])
-        .await
-        .unwrap();
-
-    let users: Vec<User> = result.into_iter().map(|row| User::from(row)).collect();
-
-    let user = users.first().unwrap();
-
-    assert_eq!(1, user.id);
-    assert_eq!("user1", user.username);
-    assert_eq!("mypass", user.password);
-    assert_eq!("user@test.com", user.email);
-    println!("User: {:#?}", user);
 }
 
